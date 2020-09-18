@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>🤖 Granpy-bot</title>
+
+        <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDMG3FXdLnjx4LkN8J8m0OR6qnbFaBsK9Y&callback=initMap&libraries=&v=weekly"></script>
+
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link rel="stylesheet" href="/static/css/page.css" >
+    </head>
+
+    <body>
+
+    	<header>
+
+    		<nav class="navbar navbar-light bg-light" >
+              <a class="navbar-brand" href="/">
+                <!-- <img src="/static/img/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt="" > -->
+                🤖   Granpy-bot
+              </a>
+
+              <div id="contain_canvas" style="border: solid 1px; height: 2em;" >
+
+                <!--  -->
+                
+              </div>
+              
+
+
+              <div class="phrase_accroche" >
+                  Ceci est une phrase d'accroche
+              </div>
+
+            </nav>
+
+    	</header>
+
+    	<div id="zone_centale" class="col-12" style="min-height: 550px;" >
+
+            <div class="card mt-2">
+                <div class="card-body" id="contain_dialogue" style="max-height: 500px; overflow-y: scroll;">
+                  <p id="interaction" class="card-text">
+
+                  
+
+
+
+
+
+                    <!--<div class="contain_message" style="width: 100%;border: solid silver 1px;display: flex;justify-content: left;" >
+                      <div class="contain_dialogue_utilisateur" style="width: 60%;border: solid silver 1px;display: flex;justify-content: left;" >
+                        <div class="contain_dialogue_text" style="min-height: 35px; border-radius: 10px;max-width: 100%; border: solid silver 1px; background: rgb(247, 247, 247);display: inline-block;padding: 7px;" >
+                          aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                        </div>
+                      </div>
+                    </div>
+
+
+
+
+
+                    <div class="contain_message" style="width: 100%;border: solid silver 1px;display: flex;justify-content: right;" >
+
+                      <div class="contain_dialogue_pybot" style="position: relative; right: 0px; width: 60%;border: solid silver 1px;display: flex;justify-content: right;" >
+
+                        <div class="contain_dialogue_text" style="position: relative; right: 0px; min-height: 35px; border-radius: 10px;max-width: 100%; border: solid silver 1px; background: rgb(247, 247, 247);display: inline-block;padding: 7px;" >
+                          aaaaaaaaaaaaaaaaaaaaaaa
+                        </div>
+                      
+                      </div>
+                      
+                    </div>
+
+                  -->
+
+
+
+                    
+
+
+
+
+                  </p>
+                  <div id="map" style="height: 200px; width: 1200px; border: solid 1px;" ></div>
+                </div>
+              </div>
+
+
+	    	<div id="contain_input" class="col-10 h-20 d-flex justify-content-center" style="position: absolute;bottom: 0px;" >
+
+	    		<input id="input_utilisateur" class="col-8" type="text" name="entree_utilisateur" placeholder="Pozez une question ..." >
+	    		
+	    	</div>
+    		
+    	</div>
+
+    	<footer class="footer d-flex justify-content-center" style="position: absolute;">
+
+            <div class="col-10 h-80 light row" >
+
+                <div class="col-4 w-20 text-secondary" >
+                    Mes noms et prénom
+                </div>
+                <div class="col-2 w-20 text-secondary" >
+                    repository github
+                </div>
+                <div class="col-2 w-20 text-secondary" >
+                    facebook
+                </div>
+                <div class="col-2 w-20 -text-secondary" >
+                    instagram
+                </div>
+                <div class="col-2 w-20 -text-secondary" >
+                    twitter
+                </div>
+
+            </div>
+
+    	
+    	</footer>
+
+    </body>
+
+    <script src="/static/js/page.js"></script>
+
+    
+</html>
