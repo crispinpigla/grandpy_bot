@@ -26,6 +26,6 @@ class ReponseWikiApi:
 
 
 
-reponse_wiki_api = ReponseWikiApi("10 Quai de la Charente, 75019 Paris, France", " Quai de la Charente")
-reponse_wiki_api.build_description()
-print(reponse_wiki_api.decription)
+#reponse_wiki_api = ReponseWikiApi("10 Quai de la Charente, 75019 Paris, France", " Quai de la Charente")
+#reponse_wiki_api.build_description()
+#print(reponse_wiki_api.decription)

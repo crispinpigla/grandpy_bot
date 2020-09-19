@@ -23,5 +23,5 @@ class GmapsApi:
 
 
 
-request_gmaps = GmapsApi()
-request_gmaps.send_request('openclassrooms')
+#request_gmaps = GmapsApi('openclassrooms')
+#request_gmaps.send_request('openclassrooms')

@@ -2,6 +2,9 @@
 
 from .. import response
 
+from . import value_expected
+
+
 class TestResponse:
 	"""docstring for TestResponse"""
 
@@ -11,6 +14,5 @@ class TestResponse:
 		entree_utilisateur = "Salut GrandPy ! Est-ce que tu connais l'adresse d'OpenClassrooms ?"
 		response0 = response.Response(entree_utilisateur)
 		response0.traitement()
-		print(response0.to_send_to_front)
-		#assert response.to_send_to_front == ?
+		assert len(response0.to_send_to_front) > 0
 

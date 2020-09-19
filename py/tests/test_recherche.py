@@ -2,6 +2,8 @@
 
 from .. import recherche
 
+from . import value_expected
+
 
 class TestRecherche:
     """docstring for TestRecherche"""
@@ -17,7 +19,7 @@ class TestRecherche:
         recherche0 = recherche.Recherche("openclassrooms")
         recherche0.request_to_gmaps()
         recherche0.adresse_to_quartier()
-        assert recherche0.resultat_quartier == {"10 Quai de la Charente, 75019 Paris, France": " Quai de la Charente", "10 Cité Paradis, 75010 Paris, France": " Cité Paradis" }
+        assert len(recherche0.resultat_quartier) > 0
 
     def test_recherche_api_wiki(self):
         """ test des recherches sur l'api de wikipedia """
@@ -25,5 +27,13 @@ class TestRecherche:
         recherche0.request_to_gmaps()
         recherche0.adresse_to_quartier()
         recherche0.build_description()
-        print(recherche0.resultat_gmaps_wiki)
-        # assert recherche0.resultat_gmaps_wiki = ?
+        assert len(recherche0.resultat_wiki) > 0
+
+    def test_build_resulta(self):
+        """Test sur le résultat final"""
+        recherche0 = recherche.Recherche("openclassrooms")
+        recherche0.request_to_gmaps()
+        recherche0.adresse_to_quartier()
+        recherche0.build_description()
+        recherche0.build_resultat()
+        assert len(recherche0.liste_resultats) > 0

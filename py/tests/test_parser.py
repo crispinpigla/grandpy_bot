@@ -3,6 +3,8 @@
 
 from .. import parser
 
+from . import value_expected
+
 
 class TestParser:
 	"""docstring for TestParser"""
@@ -13,7 +15,7 @@ class TestParser:
 		input_value = "Salut GrandPy ! Est-ce que tu connais l'adresse d'OpenClassrooms ?"
 		parser0 = parser.Parser()
 		parser0.handle_message(input_value)
-		assert parser0.str_replaced_ponctuation == "Salut GrandPy   Est ce que tu connais l adresse d OpenClassrooms  "
+		assert parser0.str_replaced_ponctuation == value_expected.expectedvalue_test_ponctuation_parser
 
 
 	def test_clean_parser(self):
@@ -22,7 +24,7 @@ class TestParser:
 		input_value = "Salut GrandPy ! Est-ce que tu connais l'adresse d'OpenClassrooms ?"
 		parser0 = parser.Parser()
 		parser0.handle_message(input_value)
-		assert parser0.list_clean == ['Salut', 'GrandPy', 'Est', 'ce', 'que', 'tu', 'connais', 'l', 'adresse','d', 'OpenClassrooms']
+		assert parser0.list_clean == value_expected.expectedvalue_test_clean_parser
 
 
 	def test_filtre_parser(self):
@@ -31,4 +33,4 @@ class TestParser:
 		input_value = "Salut GrandPy ! Est-ce que tu connais l'adresse d'OpenClassrooms ?"
 		parser0 = parser.Parser()
 		parser0.handle_message(input_value)
-		assert parser0.list_filtred == ['OpenClassrooms']
+		assert parser0.list_filtred == value_expected.expectedvalue_test_filtre_parser

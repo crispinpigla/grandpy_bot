@@ -1,17 +1,26 @@
-""" Spliteur."""
+""" Parser."""
+
+from . import config
 
 
-class Spliteur():
-
+class Parser:
 	"""docstring for Spliteur"""
 	def __init__(self):
 		"""Init."""
-		self.caractere_to_replace = ['.', '!', '?', "'", '-']
+		self.caractere_to_replace = config.PONCTUATION_SUPPORT
 		self.str_replaced_ponctuation = None
 		self.split_byspace = None
 		self.list_clean = []
+		self.list_filtred = []
 
-	def split_and_clean(self, str_to_replace):
+	def _filtre(self, list_apply, support):
+		"""Filtre. à déplacer """
+		for caractere in list_apply:
+			if caractere.lower() not in support:
+				self.list_filtred.append(caractere)
+
+
+	def _split_and_clean(self, str_to_replace):
 		""" split and clean. """
 		
 		self.str_replaced_ponctuation = str_to_replace
@@ -25,8 +34,8 @@ class Spliteur():
 				self.list_clean.append(caractere)
 
 
+	def handle_message(self, message):
+		"""handle"""
 
-
-spliteur0 = Spliteur()
-spliteur0.split_and_clean( "Salut GrandPy ! Est-ce que tu connais l'adresse d'OpenClassrooms ?" )
-print(spliteur0.list_clean)
+		self._split_and_clean(message)
+		self._filtre( self.list_clean, config.SUPPORT_PARSAGE)

@@ -148,7 +148,7 @@ document.addEventListener("keypress", function()
 
 		        if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) { // Si le fichier est chargé sans erreur
 		        	
-		        	gestionnaire_interaction.stopload();
+		        	//gestionnaire_interaction.stopload();
 		            alert(xhr.responseText);
 		        }
 
