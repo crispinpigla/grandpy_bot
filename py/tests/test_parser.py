@@ -12,7 +12,7 @@ class TestParser:
 
 		input_value = "Salut GrandPy ! Est-ce que tu connais l'adresse d'OpenClassrooms ?"
 		parser0 = parser.Parser()
-		parser0.handle_message("Salut GrandPy ! Est-ce que tu connais l'adresse d'OpenClassrooms ?")
+		parser0.handle_message(input_value)
 		assert parser0.str_replaced_ponctuation == "Salut GrandPy   Est ce que tu connais l adresse d OpenClassrooms  "
 
 
@@ -21,7 +21,7 @@ class TestParser:
 
 		input_value = "Salut GrandPy ! Est-ce que tu connais l'adresse d'OpenClassrooms ?"
 		parser0 = parser.Parser()
-		parser0.handle_message("Salut GrandPy ! Est-ce que tu connais l'adresse d'OpenClassrooms ?")
+		parser0.handle_message(input_value)
 		assert parser0.list_clean == ['Salut', 'GrandPy', 'Est', 'ce', 'que', 'tu', 'connais', 'l', 'adresse','d', 'OpenClassrooms']
 
 
@@ -30,5 +30,5 @@ class TestParser:
 
 		input_value = "Salut GrandPy ! Est-ce que tu connais l'adresse d'OpenClassrooms ?"
 		parser0 = parser.Parser()
-		parser0.handle_message("Salut GrandPy ! Est-ce que tu connais l'adresse d'OpenClassrooms ?")
+		parser0.handle_message(input_value)
 		assert parser0.list_filtred == ['OpenClassrooms']
