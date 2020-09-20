@@ -5,9 +5,9 @@ from .. import parser
 
 from . import value_expected
 
-
 class TestParser:
 	"""docstring for TestParser"""
+
 
 	def test_ponctuation_parser(self):
 		"""Vérifie que les ponctuations sont retiré d'une chaine de caractere"""

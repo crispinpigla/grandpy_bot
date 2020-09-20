@@ -10,11 +10,11 @@ class Recherche:
 
     def __init__(self, caractere_recherche):
         """Init"""
-        self.caractere_recherche = caractere_recherche
-        self.resultat_gmaps = []
-        self.resultat_quartier = {}
-        self.resultat_wiki = {}
-        self.liste_resultats = []
+        self._caractere_recherche = caractere_recherche
+        self._resultat_gmaps = []
+        self._resultat_quartier = {}
+        self._resultat_wiki = {}
+        self._liste_resultats = []
 
     def request_to_gmaps(self):
         """Effectue une recherche sur l'api de google maps"""
@@ -26,17 +26,30 @@ class Recherche:
         request_gmaps = json.loads(request_gmaps.text)
         self.resultat_gmaps = request_gmaps["results"]
 
+
     def adresse_to_quartier(self):
         """Renvoie les quartiers à partir d'adresse recuperé sur gmaps"""
         for resultat in self.resultat_gmaps:
             partie_adresse = resultat["formatted_address"]
             partie_adresse = partie_adresse.split(",")
-            quartier = partie_adresse[0]
+
+            try:
+                quartier = partie_adresse[-3]
+            except Exception as e:
+                try:
+                    quartier = partie_adresse[-2]
+                except Exception as e:
+                    try:
+                        quartier = partie_adresse[-1]
+                    except Exception as e:
+                        raise e
+
             for numero in config.NUMBER_SUPPORT:
                 if numero in quartier:
                     quartier = quartier.replace(numero, "")
             key_element = resultat
             self.resultat_quartier[resultat["formatted_address"]] = quartier
+
 
     def build_description(self):
         """Fait des recherches sur l'api de wikipedia """
@@ -48,6 +61,7 @@ class Recherche:
             )
             request_wiki = json.loads(request_wiki.text)
             self.resultat_wiki[adresse] = request_wiki["query"]["pages"]
+            
 
     def build_resultat(self):
         """Construit la liste des resultats"""
@@ -55,4 +69,21 @@ class Recherche:
         for resultat_gmaps in self.resultat_gmaps:
             for adresse in self.resultat_wiki:
                 if resultat_gmaps["formatted_address"] ==  adresse :
-                    self.liste_resultats.append( ( resultat_gmaps, self.resultat_wiki[adresse] ) )
+                    self.liste_resultats.append( [ resultat_gmaps, self.resultat_wiki[adresse] ] )
+
+
+    @property
+    def caractere_recherche(self):
+        return self._caractere_recherche
+
+    @property
+    def resultat_quartier(self):
+        return self._resultat_quartier
+
+    @property
+    def resultat_wiki(self):
+        return self._resultat_wiki
+
+    @property
+    def liste_resultats(self):
+        return self._liste_resultats
