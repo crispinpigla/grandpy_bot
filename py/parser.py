@@ -42,12 +42,7 @@ class Parser:
 		self._filtre( self._list_clean, config.SUPPORT_PARSAGE)
 
 
-	# getters
-	"""
-	@property
-	def caractere_to_replace(self):
-		return self._caractere_to_replace
-"""
+
 	@property
 	def str_replaced_ponctuation(self):
 		return self._str_replaced_ponctuation
@@ -59,30 +54,3 @@ class Parser:
 	@property
 	def list_filtred(self):
 		return self._list_filtred
-"""
-	@property
-	def split_byspace(self):
-		return self._split_byspace
-
-
-"""
-	
-	
-"""
-
-	# setters
-	@str_replaced_ponctuation.setter
-	def str_replaced_ponctuation(self,valeur):
-		self._str_replaced_ponctuation = valeur
-
-	@str_replaced_ponctuation.setter
-	def split_byspace(self,valeur):
-		self._split_byspace = valeur
-
-	@list_clean.setter
-	def list_clean(self,valeur):
-		self._list_clean = valeur
-
-	@list_filtred.setter
-	def list_filtred(self,valeur):
-		self._list_filtred = valeur"""

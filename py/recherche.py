@@ -2,8 +2,6 @@
 
 import requests, json
 
-from . import config
-
 
 class Recherche:
     """docstring for Recherche"""
@@ -29,24 +27,29 @@ class Recherche:
 
     def adresse_to_quartier(self):
         """Renvoie les quartiers à partir d'adresse recuperé sur gmaps"""
+        index_rue = -3
+        index_ville = -2
+        index_pays = -1
+
         for resultat in self.resultat_gmaps:
             partie_adresse = resultat["formatted_address"]
             partie_adresse = partie_adresse.split(",")
 
             try:
-                quartier = partie_adresse[-3]
+                quartier = partie_adresse[index_rue]
             except Exception as e:
                 try:
-                    quartier = partie_adresse[-2]
+                    quartier = partie_adresse[index_ville]
                 except Exception as e:
                     try:
-                        quartier = partie_adresse[-1]
+                        quartier = partie_adresse[index_pays]
                     except Exception as e:
                         raise e
 
-            for numero in config.NUMBER_SUPPORT:
-                if numero in quartier:
-                    quartier = quartier.replace(numero, "")
+            for caractere in quartier:
+                if caractere.isnumeric():
+                    quartier = quartier.replace(caractere, "")
+
             key_element = resultat
             self.resultat_quartier[resultat["formatted_address"]] = quartier
 
