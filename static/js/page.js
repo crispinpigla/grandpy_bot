@@ -126,9 +126,6 @@ class GestionnaireInteraction
 
             }, wait0 );
         
-        
-        
-
     }
 
 
