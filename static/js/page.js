@@ -103,7 +103,7 @@ class GestionnaireInteraction
 
         var wait0 = wait;
         var to_put = this.contenu_map_html;
-        var position_pointed0 = position_pointed
+        var position_pointed0 = position_pointed;
 
         setTimeout( function()
             { 
@@ -160,7 +160,7 @@ document.addEventListener("keypress", function()
 			var xhr = new XMLHttpRequest();
 			xhr.open('GET', '/question?question=' + input.value );
 			xhr.send(null);
-            input.value = ''
+            input.value = '';
 
 			xhr.addEventListener('readystatechange', function()
 			{ // On gère ici une requête asynchrone
@@ -176,36 +176,25 @@ document.addEventListener("keypress", function()
                     }
                     else if ( from_backend.length == 1 ) 
                     {
-                        gestionnaire_interaction.put_pybot_message('Bien sûr mon poussin !', 1500);
+                      
+                        console.log( from_backend );
 
-                        if ( from_backend[0][1].length > 1 ) 
+                        for (var i = 0; i < from_backend.length; i++) 
                         {
-                            gestionnaire_interaction.put_pybot_message("J'en ai " + from_backend[0][1].length + ' les voici !' , 2000 );
+                            gestionnaire_interaction.put_pybot_message(from_backend[i][1][0], 1000*(i+1) );
+                            gestionnaire_interaction.put_pybot_message(from_backend[i][1][1], 1500*(i+1) );
 
-                            for (var i = 0; i < from_backend[0][1].length; i++) 
+                            // Affichage du contenu des réponses
+                            for (var i0 = 2; i0 < from_backend[i][1].length; i0++) 
                             {
-                                gestionnaire_interaction.put_pybot_message(from_backend[0][1][i][0].formatted_address, 1500 + (1000*(i+1)) );
-                                gestionnaire_interaction.put_pybot_map(from_backend[0][1][i][0].geometry.location , 1500 + (1000*(i+1)) );
-                            }
-
-
-                            for (var i0 = 0; i0 < from_backend[0][1].length; i0++) 
-                            {
-
-                                for (var i1 in from_backend[0][1][i0][1])
+                                gestionnaire_interaction.put_pybot_message(from_backend[i][1][i0][0], 2000*(i+1)*(i0-1) );
+                                gestionnaire_interaction.put_pybot_map(from_backend[i][1][i0][1], 2500*(i+1)*(i0-1) );
+                                if ( from_backend[i][1][i0][3] != '' ) 
                                 {
-                                    
-                                    if ( from_backend[0][1][i0][1][i1].extract != undefined ) 
-                                    {
-                                        gestionnaire_interaction.put_pybot_message("Mais t'ai-je déjà raconté l'histoire de " + from_backend[0][1][i0][1][i1].title + ' ?' , 1500 + (1000*(i+1)) );
-                                        i += 1;
-                                        gestionnaire_interaction.put_pybot_message( from_backend[0][1][i0][1][i1].extract , 1500 + (1000*(i+1)) );
-                                        i += 1;
-                                        console.log('du backend 0 :', from_backend[0][1][i0][1][i1] )
-                                    }
-                                    
+                                    gestionnaire_interaction.put_pybot_message(from_backend[i][1][i0][2], 3000*(i+1)*(i0-1) );
+                                    gestionnaire_interaction.put_pybot_message(from_backend[i][1][i0][3], 3500*(i+1)*(i0-1) );
                                 }
-
+                                
                             }
                             
                         }
@@ -215,7 +204,9 @@ document.addEventListener("keypress", function()
                     else
                     {
                         //  Plusieurs caractères sont obtenus après le parsage
-                        console.log("Plusieurs résultats ont été trouvé après le parsage")
+                        resultat_apres_parsage = []
+                        for (var i1 = 0; i1 < from_backend.length; i1++) {    resultat_apres_parsage.push( from_backend[i1][0] );    }
+                        console.log("Plusieurs résultats ont été trouvé après le parsage :", resultat_apres_parsage);
                     }
 
 		        }
