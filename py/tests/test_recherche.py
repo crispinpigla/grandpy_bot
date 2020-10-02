@@ -5,6 +5,18 @@ from .. import recherche
 from . import value_expected
 
 
+
+
+class MockRequests:
+
+        def init(self):
+            pass
+
+        def json(self):
+            return value_expected.expectedvalue_test_recherche_api_gmaps
+
+
+
 class TestRecherche:
     """docstring for TestRecherche"""
 
@@ -14,7 +26,24 @@ class TestRecherche:
         """ test d'une recherche sur l'api de google maps """
         recherche0 = recherche.Recherche( self.input_recherche )
         recherche0.request_to_gmaps()
-        assert len(recherche0.resultat_gmaps) > 0
+        #assert len(recherche0.resultat_gmaps) > 0
+
+
+    def test(self, monkeypatch):
+        """test"""
+
+        def mock_get(*args, **kwargs):
+            """aaa"""
+            return MockRequests()
+
+        #monkeypatch.setattr(requests, "get", mock_get)
+        #monkeypatch.setattr('requests.get', mock_get)
+        monkeypatch.setattr('json.loads', mock_get)
+
+        recherche0 = recherche.Recherche( self.input_recherche )
+        recherche0.request_to_gmaps()
+
+        assert recherche0.resultat_gmaps == value_expected.expectedvalue_test_recherche_api_gmaps
 
     def test_adresse_to_quartier(self):
         """Test les quartier extrait des resultats de gmaps"""

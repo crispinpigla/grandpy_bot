@@ -56,7 +56,7 @@ class Response:
 				recherche_adresse.append( resultat_api[0]['geometry']['location'] )
 				for id_adresse_wiki in resultat_api[1]:
 					recherche_adresse.append( rnd.choice(config.ANNONCE_DESCRIPTION_RESPONSE) + resultat_api[1][id_adresse_wiki]['title'])
-					print(resultat_api)
+					#print(resultat_api)
 					try:
 						recherche_adresse.append( resultat_api[1][id_adresse_wiki]['extract'] )
 					except Exception as e:
