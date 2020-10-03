@@ -20,9 +20,8 @@ class Recherche:
             "https://maps.googleapis.com/maps/api/place/textsearch/json?query="
             + self.caractere_recherche
             + "&key=AIzaSyDMG3FXdLnjx4LkN8J8m0OR6qnbFaBsK9Y"
-        )
-        request_gmaps = json.loads(request_gmaps.text)
-        self.resultat_gmaps = request_gmaps["results"]
+        ).json()
+        self.resultat_gmaps = request_gmaps['results']
 
 
     def adresse_to_quartier(self):
@@ -44,7 +43,7 @@ class Recherche:
                     try:
                         quartier = partie_adresse[index_pays]
                     except Exception as e:
-                        raise e
+                        quartier = ''
 
             for caractere in quartier:
                 if caractere.isnumeric():
@@ -61,8 +60,10 @@ class Recherche:
                 "https://fr.wikipedia.org/w/api.php?action=query&prop=extracts&titles="
                 + self.resultat_quartier[adresse]
                 + "&format=json"
-            )
-            request_wiki = json.loads(request_wiki.text)
+            ).json()
+            
+            #print(request_wiki)
+
             self.resultat_wiki[adresse] = request_wiki["query"]["pages"]
             
 
