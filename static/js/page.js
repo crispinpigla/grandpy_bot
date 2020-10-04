@@ -3,9 +3,9 @@
 var input = document.getElementById("input_utilisateur");
 
 
-
+//  Classe de l'objet qui est chargé de l'interaction entre l'utilisateur et l'application
 class GestionnaireInteraction
-{
+{    
 
     constructor()
     {
@@ -17,7 +17,7 @@ class GestionnaireInteraction
     }
 
     loading()
-    {
+    { // Active l'icone de chargement
 
     	var moncanvas = document.createRange().createContextualFragment('<canvas id="load" style="height: 100%;"></canvas>');
     	this.parentMonCanvas.appendChild(moncanvas);
@@ -57,12 +57,14 @@ class GestionnaireInteraction
     }
 
     stopload()
-    {
+    {  // Désactive l'icone de chargement
+
     	this.parentMonCanvas.removeChild(this.monCanvas); 
+
     }
 
     put_user_message(message)
-    {
+    {  // Affiche le message de l'utilisateur dans le dialogue
 
         this.contenu_string = '<div class="contain_dialogue" style="width: 100%;'+
         'display: flex;justify-content: left;margin-bottom: 10px;" ><div class="contain_dialogue_utilisateur" style="width: 60%;'+
@@ -77,7 +79,7 @@ class GestionnaireInteraction
     }
 
     put_pybot_message(message, wait)
-    {
+    {  // Affiche le message de l'application dans le dialogue
 
         this.contenu_string = '<div class="contain_dialogue" style="width: 100%;'+
         'display: flex;justify-content: right;margin-bottom: 10px;" ><div class="contain_dialogue_pybot" style="width: 60%;'+
@@ -95,7 +97,7 @@ class GestionnaireInteraction
 
     put_pybot_map(position_pointed, wait)
     {
-        //             google maps
+        //    Affiche un lieu sur une carte google maps
 
         this.contenu_map_string = '<div class="contain_dialogue" style="width: 100%;'+
         'display: flex;justify-content: right;margin-bottom: 10px;" ><div class="map" style="border-radius: 10px;border: solid silver 1px;height: 200px; width: 1200px; border: solid 1px;" ></div></div>';
@@ -132,6 +134,7 @@ class GestionnaireInteraction
 }
 
 
+// Création de l'objet interaction
 
 var gestionnaire_interaction = new GestionnaireInteraction();
 
@@ -150,22 +153,26 @@ document.addEventListener("keypress", function()
 
 	{
 
+        // Detection de l'appui de la touche entrée
 		if ( event.keyCode == 13 ) 
 		{
 
+            // Insertion du message utilisateur dans le dialogue et activation de l'icone de chargement
             gestionnaire_interaction.put_user_message(input.value)
-
 			gestionnaire_interaction.loading();
 
+            // envoie de la requete ajax et reinitialisation du formulaire
 			var xhr = new XMLHttpRequest();
 			xhr.open('GET', '/question?question=' + input.value );
 			xhr.send(null);
             input.value = '';
 
+
 			xhr.addEventListener('readystatechange', function()
 			{ // On gère ici une requête asynchrone
 
-		        if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) { // Si le fichier est chargé sans erreur
+		        if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) 
+                { // Si le fichier est chargé sans erreur
 		        	
 		        	gestionnaire_interaction.stopload();
                     var from_backend = JSON.parse(xhr.responseText)
@@ -173,9 +180,12 @@ document.addEventListener("keypress", function()
                     {
                         //  Aucun résultat n'est trouvé
                         console.log("Aucun résultat n'a été trouvé après le parsage")
+                        gestionnaire_interaction.put_pybot_message('Désolé mon kiki.\nJe ne peux pas traité ta demande ...', 1000);
+                        gestionnaire_interaction.put_pybot_message('Réessaye peut-être une autre', 1500);
                     }
-                    else if ( from_backend.length == 1 ) 
+                    else if ( from_backend.length == 1 )
                     {
+                        // Un résultat est trouvé
                       
                         console.log( from_backend );
 
@@ -205,8 +215,10 @@ document.addEventListener("keypress", function()
                     {
                         //  Plusieurs caractères sont obtenus après le parsage
                         resultat_apres_parsage = []
-                        for (var i1 = 0; i1 < from_backend.length; i1++) {    resultat_apres_parsage.push( from_backend[i1][0] );    }
+                        for (var i1 = 0; i1 < from_backend.length; i1++) {    resultat_apres_parsage.push( from_backend[i1] );    }
                         console.log("Plusieurs résultats ont été trouvé après le parsage :", resultat_apres_parsage);
+                        gestionnaire_interaction.put_pybot_message('Désolé mon kiki mais je ne peux pas traité ta demande ...', 1000);
+                        gestionnaire_interaction.put_pybot_message('Réessaye peut-être une autre', 1500);
                     }
 
 		        }

@@ -21,8 +21,7 @@ class Recherche:
             + self.caractere_recherche
             + "&key=AIzaSyDMG3FXdLnjx4LkN8J8m0OR6qnbFaBsK9Y"
         ).json()
-        self.resultat_gmaps = request_gmaps['results']
-
+        self.resultat_gmaps = request_gmaps["results"]
 
     def adresse_to_quartier(self):
         """Renvoie les quartiers à partir d'adresse recuperé sur gmaps"""
@@ -43,7 +42,7 @@ class Recherche:
                     try:
                         quartier = partie_adresse[index_pays]
                     except Exception as e:
-                        quartier = ''
+                        quartier = ""
 
             for caractere in quartier:
                 if caractere.isnumeric():
@@ -51,7 +50,6 @@ class Recherche:
 
             key_element = resultat
             self.resultat_quartier[resultat["formatted_address"]] = quartier
-
 
     def build_description(self):
         """Fait des recherches sur l'api de wikipedia """
@@ -61,33 +59,37 @@ class Recherche:
                 + self.resultat_quartier[adresse]
                 + "&format=json"
             ).json()
-            
-            #print(request_wiki)
+
+
 
             self.resultat_wiki[adresse] = request_wiki["query"]["pages"]
-            
 
     def build_resultat(self):
         """Construit la liste des resultats"""
 
         for resultat_gmaps in self.resultat_gmaps:
             for adresse in self.resultat_wiki:
-                if resultat_gmaps["formatted_address"] ==  adresse :
-                    self.liste_resultats.append( [ resultat_gmaps, self.resultat_wiki[adresse] ] )
-
+                if resultat_gmaps["formatted_address"] == adresse:
+                    self.liste_resultats.append(
+                        [resultat_gmaps, self.resultat_wiki[adresse]]
+                    )
 
     @property
     def caractere_recherche(self):
+        """getter"""
         return self._caractere_recherche
 
     @property
     def resultat_quartier(self):
+        """getter"""
         return self._resultat_quartier
 
     @property
     def resultat_wiki(self):
+        """getter"""
         return self._resultat_wiki
 
     @property
     def liste_resultats(self):
+        """getter"""
         return self._liste_resultats
