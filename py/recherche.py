@@ -21,6 +21,7 @@ class Recherche:
             + self.caractere_recherche
             + "&key=AIzaSyDMG3FXdLnjx4LkN8J8m0OR6qnbFaBsK9Y"
         ).json()
+        print(request_gmaps)
         self.resultat_gmaps = request_gmaps["results"]
 
     def adresse_to_quartier(self):

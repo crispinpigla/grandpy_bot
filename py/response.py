@@ -24,6 +24,7 @@ class Response:
         parser0 = parser.Parser()
         parser0.handle_message(self.demande_utilisateur)
 
+        print(parser0.list_filtred)
         if len(parser0.list_filtred) == 0:
             pass
 
@@ -37,7 +38,9 @@ class Response:
             self._liste_recherche.append(recherche.Recherche(caractere))
 
             # Construction des reponses des differentes recherche
+            print('self.liste_recherche: ', self.liste_recherche)
             for recherche0 in self.liste_recherche:
+                print(recherche0.caractere_recherche)
                 recherche0.request_to_gmaps()
                 recherche0.adresse_to_quartier()
                 recherche0.build_description()
