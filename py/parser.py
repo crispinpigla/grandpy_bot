@@ -22,10 +22,13 @@ class Parser:
                 self._list_filtred.append(caractere)
 
     def _split_and_clean(self, str_to_replace):
-        """ split and clean. """
+        """
+        split and clean.
+        Replace all ponctuation by space
+        """
 
         self._str_replaced_ponctuation = str_to_replace
-        for caractere in self._caractere_to_replace:
+        for caractere in self._caractere_to_replace:  # Replace all ponctuation by space
             self._str_replaced_ponctuation = self._str_replaced_ponctuation.replace(
                 caractere, " "
             )

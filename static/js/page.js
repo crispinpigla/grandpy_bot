@@ -12,54 +12,54 @@ class GestionnaireInteraction
         this.load_progress = 0;
         this.parentMonCanvas = document.getElementById('contain_canvas');
         this.monCanvas;
-		this.ctx ;
+        this.ctx ;
 
     }
 
     loading()
     { // Active l'icone de chargement
 
-    	var moncanvas = document.createRange().createContextualFragment('<canvas id="load" style="height: 100%;"></canvas>');
-    	this.parentMonCanvas.appendChild(moncanvas);
+        var moncanvas = document.createRange().createContextualFragment('<canvas id="load" style="height: 100%;"></canvas>');
+        this.parentMonCanvas.appendChild(moncanvas);
 
-    	this.monCanvas = document.getElementById('load');
-    	this.ctx = this.monCanvas.getContext('2d');
+        this.monCanvas = document.getElementById('load');
+        this.ctx = this.monCanvas.getContext('2d');
 
-    	var var_att = {
-    		load_progress: this.load_progress,
-    		monCanvas: this.monCanvas,
-    		ctx: this.ctx,
-    		interrupteur_loading: this.interrupteur_loading
-    	};
+        var var_att = {
+            load_progress: this.load_progress,
+            monCanvas: this.monCanvas,
+            ctx: this.ctx,
+            interrupteur_loading: this.interrupteur_loading
+        };
 
-    	console.log(var_att);
+        console.log(var_att);
 
-    	setInterval(function()
-    	{
-    		
-			if ( var_att.load_progress < Math.PI*2 ) 
-    		{    var_att.load_progress += 0.05;    }
-    		else if ( var_att.load_progress >= Math.PI*2 )
-    		{    var_att.load_progress = 0;    }
+        setInterval(function()
+        {
 
-			var_att.ctx.clearRect(0, 0, 300, 150);
-			var_att.ctx.strokeStyle = "blue";
-			var_att.ctx.lineWidth = 25;
-			var_att.ctx.lineCap = "round";
-			var_att.ctx.beginPath();
-			var_att.ctx.arc(150, 75, 60, 0, 0 + var_att.load_progress );
-			var_att.ctx.stroke();
-			var_att.ctx.closePath();
+            if ( var_att.load_progress < Math.PI*2 )
+            {    var_att.load_progress += 0.05;    }
+            else if ( var_att.load_progress >= Math.PI*2 )
+            {    var_att.load_progress = 0;    }
 
-    		
+            var_att.ctx.clearRect(0, 0, 300, 150);
+            var_att.ctx.strokeStyle = "blue";
+            var_att.ctx.lineWidth = 25;
+            var_att.ctx.lineCap = "round";
+            var_att.ctx.beginPath();
+            var_att.ctx.arc(150, 75, 60, 0, 0 + var_att.load_progress );
+            var_att.ctx.stroke();
+            var_att.ctx.closePath();
 
-    	}, 5);
+
+
+        }, 5);
     }
 
     stopload()
     {  // Désactive l'icone de chargement
 
-    	this.parentMonCanvas.removeChild(this.monCanvas); 
+        this.parentMonCanvas.removeChild(this.monCanvas);
 
     }
 
@@ -108,9 +108,9 @@ class GestionnaireInteraction
         var position_pointed0 = position_pointed;
 
         setTimeout( function()
-            { 
+            {
 
-                document.getElementById('contain_dialogue').appendChild(to_put); 
+                document.getElementById('contain_dialogue').appendChild(to_put);
 
                 var mydivs = document.getElementsByClassName('map');
                 console.log('mes divs : ', mydivs)
@@ -127,7 +127,7 @@ class GestionnaireInteraction
 
 
             }, wait0 );
-        
+
     }
 
 
@@ -146,37 +146,37 @@ var gestionnaire_interaction = new GestionnaireInteraction();
 
 
 
-//           Envoie de la demande
+// Envoie de la demande
 
 
 document.addEventListener("keypress", function()
 
-	{
+    {
 
         // Detection de l'appui de la touche entrée
-		if ( event.keyCode == 13 ) 
-		{
+        if ( event.keyCode == 13 )
+        {
 
             // Insertion du message utilisateur dans le dialogue et activation de l'icone de chargement
             gestionnaire_interaction.put_user_message(input.value)
-			gestionnaire_interaction.loading();
+            gestionnaire_interaction.loading();
 
             // envoie de la requete ajax et reinitialisation du formulaire
-			var xhr = new XMLHttpRequest();
-			xhr.open('GET', '/question?question=' + input.value );
-			xhr.send(null);
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', '/question?question=' + input.value );
+            xhr.send(null);
             input.value = '';
 
 
-			xhr.addEventListener('readystatechange', function()
-			{ // On gère ici une requête asynchrone
+            xhr.addEventListener('readystatechange', function()
+            { // On gère ici une requête asynchrone
 
-		        if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) 
+                if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200)
                 { // Si le fichier est chargé sans erreur
-		        	
-		        	gestionnaire_interaction.stopload();
+
+                    gestionnaire_interaction.stopload();
                     var from_backend = JSON.parse(xhr.responseText)
-                    if ( from_backend.length == 0 ) 
+                    if ( from_backend.length == 0 )
                     {
                         //  Aucun résultat n'est trouvé
                         console.log("Aucun résultat n'a été trouvé après le parsage")
@@ -186,30 +186,30 @@ document.addEventListener("keypress", function()
                     else if ( from_backend.length == 1 )
                     {
                         // Un résultat est trouvé
-                      
+
                         console.log( from_backend );
 
-                        for (var i = 0; i < from_backend.length; i++) 
+                        for (var i = 0; i < from_backend.length; i++)
                         {
                             gestionnaire_interaction.put_pybot_message(from_backend[i][1][0], 1000*(i+1) );
                             gestionnaire_interaction.put_pybot_message(from_backend[i][1][1], 1500*(i+1) );
 
                             // Affichage du contenu des réponses
-                            for (var i0 = 2; i0 < from_backend[i][1].length; i0++) 
+                            for (var i0 = 2; i0 < from_backend[i][1].length; i0++)
                             {
                                 gestionnaire_interaction.put_pybot_message(from_backend[i][1][i0][0], 2000*(i+1)*(i0-1) );
                                 gestionnaire_interaction.put_pybot_map(from_backend[i][1][i0][1], 2500*(i+1)*(i0-1) );
-                                if ( from_backend[i][1][i0][3] != '' ) 
+                                if ( from_backend[i][1][i0][3] != '' )
                                 {
                                     gestionnaire_interaction.put_pybot_message(from_backend[i][1][i0][2], 3000*(i+1)*(i0-1) );
                                     gestionnaire_interaction.put_pybot_message(from_backend[i][1][i0][3], 3500*(i+1)*(i0-1) );
                                 }
-                                
+
                             }
-                            
+
                         }
-                        
-                        
+
+
                     }
                     else
                     {
@@ -221,13 +221,13 @@ document.addEventListener("keypress", function()
                         gestionnaire_interaction.put_pybot_message('Réessaye peut-être une autre', 1500);
                     }
 
-		        }
+                }
 
-			});
+            });
 
-		}
+        }
 
-	});
+    });
 
 
 

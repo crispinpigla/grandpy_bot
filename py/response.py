@@ -28,7 +28,8 @@ class Response:
         if len(parser0.list_filtred) == 0:
             pass
 
-        elif len(parser0.list_filtred) in [1, 2]:
+        else:
+        # elif len(parser0.list_filtred) in [1, 2]:
 
             # Parcous les element obtenus apres le parsage
             caractere = parser0.list_filtred[0]
@@ -41,7 +42,8 @@ class Response:
             print('self.liste_recherche: ', self.liste_recherche)
             for recherche0 in self.liste_recherche:
                 print(recherche0.caractere_recherche)
-                recherche0.request_to_gmaps()
+                # recherche0.request_to_gmaps()
+                recherche0.request_to_nominatim_osmap()
                 recherche0.adresse_to_quartier()
                 recherche0.build_description()
                 recherche0.build_resultat()
@@ -70,8 +72,9 @@ class Response:
                 #  Ajout des résultats des api
                 for resultat_api in resultat_parse[1]:
                     recherche_adresse = []
-                    recherche_adresse.append(resultat_api[0]["formatted_address"])
-                    recherche_adresse.append(resultat_api[0]["geometry"]["location"])
+                    recherche_adresse.append(resultat_api[0][recherche.Recherche.SEARCH_MAPS_SERVICE_TO_ADDRESS_KEY[recherche.Recherche.CURRENT_SEARCH_MAPS_SERVICE]])
+                    recherche_adresse.append({"lat": float(resultat_api[0]['lat']), "lng": float(resultat_api[0]['lon'])})
+                    # recherche_adresse.append(resultat_api[0]["geometry"]["location"])  #  for gmaps
                     for id_adresse_wiki in resultat_api[1]:
                         recherche_adresse.append(
                             rnd.choice(config.ANNONCE_DESCRIPTION_RESPONSE)
@@ -87,11 +90,11 @@ class Response:
                     response_send_front_resultat_parse[1].append(recherche_adresse)
 
                 self._to_send_to_front.append(response_send_front_resultat_parse)
-                print(self._to_send_to_front)
+                # print(self._to_send_to_front)
 
-        else:
-            for caractere0 in parser0.list_filtred:
-                self._to_send_to_front.append(caractere0)
+        # else:
+        #     for caractere0 in parser0.list_filtred:
+        #         self._to_send_to_front.append(caractere0)
 
     @property
     def demande_utilisateur(self):
