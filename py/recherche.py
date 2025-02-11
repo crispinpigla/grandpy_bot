@@ -3,6 +3,7 @@
 import requests, json
 from . import config
 from pprint import pprint
+import pdb
 
 
 class Recherche:
@@ -39,8 +40,13 @@ class Recherche:
 
     def request_to_nominatim_osmap(self):
         """"""
+        headers = {  # requets nominatim api require custom useragent
+            "User-Agent": "GranPyBotUserAgent/1.0",
+            "Referer": "https://grandpybot.devcris.com/"
+        }
         request_nominatim = requests.get(
-            "https://nominatim.openstreetmap.org/search?q=%s&format=json" % self.caractere_recherche
+            "https://nominatim.openstreetmap.org/search?q=%s&format=json" % self.caractere_recherche,
+            headers=headers
         ).json()
         # pprint(request_nominatim)
         self.resultat_search_maps = list()
@@ -93,9 +99,6 @@ class Recherche:
                 + self.resultat_quartier[adresse]
                 + "&format=json"
             ).json()
-
-
-
             self.resultat_wiki[adresse] = request_wiki["query"]["pages"]
 
     def build_resultat(self):
